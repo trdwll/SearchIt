@@ -20,6 +20,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Web;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 
 using Newtonsoft.Json;
 using SearchIt;
@@ -55,7 +56,7 @@ namespace SearchIt
         void Search(string str)
         {
             System.Diagnostics.Process.Start(ParseSelection(comboBox1.SelectedIndex) + Uri.EscapeDataString(str));
-            textBox1.Text = "";
+            SearchBox.Text = "";
             comboBox1.SelectedIndex = 0;
             MoveOut();
         }
@@ -75,7 +76,7 @@ namespace SearchIt
                 this.Location = origin;
             }
 
-            textBox1.Focus();
+            SearchBox.Focus();
             Focus();
         }
 
@@ -125,7 +126,7 @@ namespace SearchIt
         {
             if (keyData == Keys.Enter)
             {
-                Search(textBox1.Text);
+                Search(SearchBox.Text);
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);
@@ -133,7 +134,7 @@ namespace SearchIt
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            System.Drawing.Rectangle rect = new Rectangle(textBox1.Location.X, textBox1.Location.Y, textBox1.ClientSize.Width, textBox1.ClientSize.Height);
+            System.Drawing.Rectangle rect = new Rectangle(SearchBox.Location.X, SearchBox.Location.Y, SearchBox.ClientSize.Width, SearchBox.ClientSize.Height);
             System.Drawing.Rectangle rect2 = new Rectangle(comboBox1.Location.X, comboBox1.Location.Y, comboBox1.ClientSize.Width, comboBox1.ClientSize.Height);
 
             rect.Inflate(2, 2);
