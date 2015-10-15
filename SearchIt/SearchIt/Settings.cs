@@ -19,10 +19,8 @@ using System.IO;
 using System.Drawing;
 using System.Web.Script.Serialization;
 
-
 namespace SearchIt
 {
-
     public class Config
     {
         public List<SearchEngine> SearchEngines = new List<SearchEngine>();
@@ -50,7 +48,9 @@ namespace SearchIt
 
         private static string GetSettingsFileContents()
         {
-            return File.ReadAllText(Path);
+            return File.Exists(Path) ? File.ReadAllText(Path) : @"
+{ ""SearchEngines"": [ { ""Title"": ""Google"", ""URL"": ""http://www.google.com/search?q="" }, { ""Title"": ""Bing"", ""URL"": ""http://www.bing.com/search?q="" } ],
+""Miscellaneous"": [ { ""Title"": ""YouTube"", ""URL"": ""https://www.youtube.com/results?search_query="" } ] }";
         }
 
         public static void GetJSONFile()
@@ -69,16 +69,7 @@ namespace SearchIt
                 Titles.Add(misc.Title);
                 URLS.Add(misc.URL);
             }
-
-
-//             foreach (JObject o in JArray.Parse(GetSettingsFileContents()).Children<JObject>())
-//             {
-//                 Titles.Add((string)o["Title"]);
-//                 URLS.Add((string)o["URL"]);
-//             }
         }
-
-
 
         public static Color GetFormBackgroundColor()
         {

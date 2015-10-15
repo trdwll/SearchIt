@@ -24,6 +24,18 @@ namespace SearchIt
 {
     public partial class SettingsForm : Form
     {
+        List<Color> ColorList = new List<Color>();
+
+        private Color _FormBackgroundColor;
+        private Color _FormForegroundColor;
+
+        private Color _SearchBackgroundColor;
+        private Color _SearchForegroundColor;
+
+        private Color _ElementBorderColor;
+
+        private int _FormOpacity;
+
         public SettingsForm()
         {
             InitializeComponent();
@@ -47,22 +59,13 @@ namespace SearchIt
 
 
             FormBackgroundColor.SelectedItem = Properties.Settings.Default.FormBackgroundColor;
+            FormForegroundColor.SelectedItem = Properties.Settings.Default.FormForegroundColor;
+            SearchBackgroundColor.SelectedItem = Properties.Settings.Default.SearchBackgroundColor;
+            SearchForegroundColor.SelectedItem = Properties.Settings.Default.SearchForegroundColor;
+            ElementBorderColor.SelectedItem = Properties.Settings.Default.ElementBorderColor;
 
             label6.Text = "Opacity: (" + FormOpacity.Value.ToString() + ")"; 
         }
-
-
-        List<Color> ColorList = new List<Color>();
-
-        private Color _FormBackgroundColor;
-        private Color _FormForegroundColor;
-
-        private Color _SearchBackgroundColor;
-        private Color _SearchForegroundColor;
-
-        private Color _ElementBorderColor;
-
-        private int _FormOpacity;
 
         private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
