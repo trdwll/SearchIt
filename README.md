@@ -1,5 +1,6 @@
-# SearchIt
+# SearchIt 0.3
 
 SearchIt is a software to quickly search the internet.
 
-Please note, this is a very early concept and it may or may not stay in C#.
+# Commands
+!settings - Settings Form

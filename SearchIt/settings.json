@@ -1,18 +1,25 @@
-[
-    {
-        "Title": "Google",
-        "URL": "http://www.google.com/search?q="
-    },
-    {
-        "Title": "DuckDuckGo",
-        "URL": "https://duckduckgo.com/?q="
-    },
-    {
-        "Title": "YouTube",
-        "URL": "https://www.youtube.com/results?search_query="
-    },
-    {
-        "Title": "IconFinder",
-        "URL": "https://www.iconfinder.com/search/?q="
-    }
-]
+{
+
+    "SearchEngines": 
+    [
+        {
+            "Title": "Google",
+            "URL": "http://www.google.com/search?q="
+        },
+        {
+            "Title": "DuckDuckGo",
+            "URL": "https://duckduckgo.com/?q="
+        }
+    ],
+    "Miscellaneous": 
+    [
+        {
+            "Title": "YouTube",
+            "URL": "https://www.youtube.com/results?search_query="
+        },
+        {
+            "Title": "IconFinder",
+            "URL": "https://www.iconfinder.com/search/?q="
+        }
+    ]
+}

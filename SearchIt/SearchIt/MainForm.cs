@@ -21,8 +21,8 @@ using System.Windows.Forms;
 using System.Web;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
-using Newtonsoft.Json;
 using SearchIt;
 
 namespace SearchIt
@@ -36,9 +36,18 @@ namespace SearchIt
 
         bool isFormShowing = true;
 
+        int index = 0;
+
         public MainForm()
         {
             InitializeComponent();
+
+            // Run the styling before form load
+            this.BackColor = Settings.GetFormBackgroundColor();
+            this.ForeColor = Settings.GetFormBackgroundColor(); // Same as background color
+            SearchBox.BackColor = Settings.GetSearchBackgroundColor();
+            SearchBox.ForeColor = Settings.GetSearchForegroundColor();
+           // this.Opacity = Settings.GetFormOpacity(); // Opacity is bugged for some reason... it sets as either 0 or 100 
 
             Settings.GetJSONFile();
 
@@ -49,17 +58,37 @@ namespace SearchIt
 
             MoveIn();
 
-            //origin = new Point(0, screen.Height / 4);
+           // origin = new Point(0, screen.Height / 4);
         }
 
 
         void Search(string str)
         {
-            System.Diagnostics.Process.Start(ParseSelection(comboBox1.SelectedIndex) + Uri.EscapeDataString(str));
+            List<string> tlds = new List<string>(new string[] { ".com", ".net", ".org" });
+            bool istld = false;
+
+            foreach (string tld in tlds)
+            {
+                if (str.ToLower().Contains(tld) && !str.Contains(" "))
+                {
+                    istld = true;
+                    
+                }
+            }
+
+            if (str.StartsWith("!settings"))
+            {
+                SettingsForm sf = new SettingsForm();
+                sf.Show();
+            }
+
+            Process.Start(istld ? "http://" + str : (ParseSelection(comboBox1.SelectedIndex) + Uri.EscapeDataString(str)));
+
             SearchBox.Text = "";
             comboBox1.SelectedIndex = 0;
             MoveOut();
         }
+
 
         private string ParseSelection(int p)
         {
@@ -82,13 +111,17 @@ namespace SearchIt
 
         void MoveOut()
         {
-            // this.Location = new Point(screen.Location.X, screen.Location.Y);
             for (int i = 0; i < screen.Width - 1; i++)
             {
                 this.Location = new Point(i, this.Location.Y);
-               // this.Width -= 2;
+                
+                if (i % 5 == 0)
+                {
+                    this.Width -= 5;
+                }
             }
 
+            this.Width = 0;
             this.Hide();
         }
 
@@ -129,6 +162,11 @@ namespace SearchIt
                 Search(SearchBox.Text);
                 return true;
             }
+            else if (keyData == Keys.Escape)
+            {
+                SpawnForm();
+                return true;
+            }
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
@@ -139,13 +177,16 @@ namespace SearchIt
 
             rect.Inflate(2, 2);
             rect2.Inflate(2, 2);
-            System.Windows.Forms.ControlPaint.DrawBorder(e.Graphics, rect, Color.Green, ButtonBorderStyle.Solid);
-            System.Windows.Forms.ControlPaint.DrawBorder(e.Graphics, rect2, Color.Green, ButtonBorderStyle.Solid);
+            System.Windows.Forms.ControlPaint.DrawBorder(e.Graphics, rect, Settings.GetElementBorderColor(), ButtonBorderStyle.Solid);
+            System.Windows.Forms.ControlPaint.DrawBorder(e.Graphics, rect2, Settings.GetElementBorderColor(), ButtonBorderStyle.Solid);
         }
 
         protected override void WndProc(ref Message m)
         {
-            if (m.Msg == 0x0312) SpawnForm();
+            if (m.Msg == 0x0312)
+            {
+                SpawnForm();
+            }
 
             base.WndProc(ref m);
         }
@@ -164,6 +205,18 @@ namespace SearchIt
             {
                 Hide();
             }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           if (comboBox1.SelectedItem.Equals("---------"))
+           {
+               comboBox1.SelectedIndex = index;
+           }
+           else
+           {
+               index = comboBox1.SelectedIndex;
+           }
         }
     }
 

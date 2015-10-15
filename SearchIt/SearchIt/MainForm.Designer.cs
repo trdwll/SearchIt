@@ -30,6 +30,8 @@
         {
             this.SearchBox = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // SearchBox
@@ -62,6 +64,28 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(212, 36);
             this.comboBox1.TabIndex = 2;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(257, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Created by: Russ \'trdwll\' Treadwell <www.trdwll.com>\r\n";
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(879, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(321, 13);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Special Thanks to Jack \'OhYea777\' Taylor <www.ohyea777.com>";
             // 
             // MainForm
             // 
@@ -69,6 +93,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1212, 495);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.SearchBox);
             this.ForeColor = System.Drawing.Color.Black;
@@ -92,6 +118,8 @@
 
         private System.Windows.Forms.TextBox SearchBox;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
 
