@@ -3,5 +3,5 @@
 SearchIt is a software to quickly search the internet.
 
 # Commands
-!settings - Settings Form
-!quit - Quit application
+- !settings - Settings Form
+- !quit - Quit application
