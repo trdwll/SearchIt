@@ -36,6 +36,8 @@ namespace SearchIt
 
         private int _FormOpacity;
 
+        private string _FormBackgroundImage;
+
         public SettingsForm()
         {
             InitializeComponent();
@@ -57,14 +59,19 @@ namespace SearchIt
             SearchForegroundColor.DataSource = new List<Color>(ColorList);
             ElementBorderColor.DataSource = new List<Color>(ColorList);
 
+            SetSelectedIndex();
+          //  FormOpacity.Value = Properties.Settings.Default.FormOpacity;
 
+            //label6.Text = "Opacity: (" + FormOpacity.Value.ToString() + ")"; 
+        }
+
+        private void SetSelectedIndex()
+        {
             FormBackgroundColor.SelectedItem = Properties.Settings.Default.FormBackgroundColor;
             FormForegroundColor.SelectedItem = Properties.Settings.Default.FormForegroundColor;
             SearchBackgroundColor.SelectedItem = Properties.Settings.Default.SearchBackgroundColor;
             SearchForegroundColor.SelectedItem = Properties.Settings.Default.SearchForegroundColor;
             ElementBorderColor.SelectedItem = Properties.Settings.Default.ElementBorderColor;
-
-            label6.Text = "Opacity: (" + FormOpacity.Value.ToString() + ")"; 
         }
 
         private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -75,9 +82,12 @@ namespace SearchIt
             Properties.Settings.Default["SearchForegroundColor"] = _SearchForegroundColor;
             Properties.Settings.Default["ElementBorderColor"] = _ElementBorderColor;
             Properties.Settings.Default["FormOpacity"] = _FormOpacity;
+            Properties.Settings.Default["FormBackgroundImage"] = _FormBackgroundImage;
 
             Properties.Settings.Default.Save();
         }
+
+        #region Stylizer
 
         private void FormBackgroundColor_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -103,14 +113,38 @@ namespace SearchIt
             _ElementBorderColor = ColorList[ElementBorderColor.SelectedIndex];
         }
 
-        private void SettingsForm_Load(object sender, EventArgs e)
-        { 
-        }
-
         private void FormOpacity_Scroll(object sender, EventArgs e)
         {
             label6.Text = "Opacity: (" + FormOpacity.Value.ToString() + ")";
             _FormOpacity = FormOpacity.Value;
+        }
+
+        private void btnFormBackgroundImage_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Title = "Set an image as the form background!";
+            ofd.Filter = "BMP Image (*.bmp)|*.bmp|JPEG Image (*.jpg, *.jpeg)|*.jpg;*.jpeg|PNG Image (*.png)|*.png|All Graphics Types|*.bmp;*.jpg;*.jpeg;*.png";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                string file = ofd.FileName;
+                textBox1.Text = file;
+
+                _FormBackgroundImage = file;
+            }
+        }
+
+        #endregion Stylizer
+
+        private void SettingsForm_Load(object sender, EventArgs e) { }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Reset();
+
+            SetSelectedIndex();
+
+            Properties.Settings.Default.Save();
         }
     }
 }

@@ -44,18 +44,11 @@ namespace SearchIt
         public static List<string> Titles = new List<string>();
         public static List<string> URLS = new List<string>();
 
-        private static readonly string Path = Application.StartupPath + "\\settings.json";
-
-        private static string GetSettingsFileContents()
-        {
-            return File.Exists(Path) ? File.ReadAllText(Path) : @"
-{ ""SearchEngines"": [ { ""Title"": ""Google"", ""URL"": ""http://www.google.com/search?q="" }, { ""Title"": ""Bing"", ""URL"": ""http://www.bing.com/search?q="" } ],
-""Miscellaneous"": [ { ""Title"": ""YouTube"", ""URL"": ""https://www.youtube.com/results?search_query="" } ] }";
-        }
-
         public static void GetJSONFile()
         {
-            Config cfg = new JavaScriptSerializer().Deserialize<Config>(GetSettingsFileContents());
+            string Path = Application.StartupPath + "\\settings.json";
+
+            Config cfg = new JavaScriptSerializer().Deserialize<Config>(File.Exists(Path) ? File.ReadAllText(Path) : @"{ ""SearchEngines"": [ { ""Title"": ""Google"", ""URL"": ""http://www.google.com/search?q="" }, { ""Title"": ""Bing"", ""URL"": ""http://www.bing.com/search?q="" } ], ""Miscellaneous"": [ { ""Title"": ""YouTube"", ""URL"": ""https://www.youtube.com/results?search_query="" } ] }");
             
             foreach (Config.SearchEngine engine in cfg.SearchEngines)
             {
@@ -70,6 +63,8 @@ namespace SearchIt
                 URLS.Add(misc.URL);
             }
         }
+
+        #region Stylizer
 
         public static Color GetFormBackgroundColor()
         {
@@ -100,5 +95,15 @@ namespace SearchIt
         {
             return Properties.Settings.Default.FormOpacity;
         }
+
+        public static Image GetFormBackgroundImage()
+        {
+            string path = Properties.Settings.Default.FormBackgroundImage;
+
+            return File.Exists(path) && (!string.IsNullOrEmpty(path) || !string.IsNullOrWhiteSpace(path)) ? Image.FromFile(path) : null;
+        }
+
+        #endregion Stylizer
+
     }
 }

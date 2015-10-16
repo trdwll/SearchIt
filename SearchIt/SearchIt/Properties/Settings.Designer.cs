@@ -94,5 +94,17 @@ namespace SearchIt.Properties {
                 this["FormOpacity"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FormBackgroundImage {
+            get {
+                return ((string)(this["FormBackgroundImage"]));
+            }
+            set {
+                this["FormBackgroundImage"] = value;
+            }
+        }
     }
 }

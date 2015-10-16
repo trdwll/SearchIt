@@ -15,6 +15,7 @@ Global
 		{9CD6D98A-97EA-47DB-94D2-71F12AF5041E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CD6D98A-97EA-47DB-94D2-71F12AF5041E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CD6D98A-97EA-47DB-94D2-71F12AF5041E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CD6D98A-97EA-47DB-94D2-71F12AF5041E}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
