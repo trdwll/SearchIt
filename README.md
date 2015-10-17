@@ -1,4 +1,4 @@
-# SearchIt 0.5
+# SearchIt 0.6
 
 SearchIt is a software to quickly search the internet.
 

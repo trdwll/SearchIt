@@ -25,6 +25,7 @@ namespace SearchIt
     {
         public List<SearchEngine> SearchEngines = new List<SearchEngine>();
         public List<Misc> Miscellaneous = new List<Misc>();
+        public List<Command> Commands = new List<Command>();
 
         public class SearchEngine
         {
@@ -37,12 +38,20 @@ namespace SearchIt
             public string Title { get; set; }
             public string URL { get; set; }
         }
+
+        public class Command
+        {
+            public string Cmd { get; set; }
+            public string URL { get; set; }
+        }
     }
 
     public class Settings
     {
         public static List<string> Titles = new List<string>();
         public static List<string> URLS = new List<string>();
+        public static List<string> CMDS = new List<string>();
+        public static List<string> CMDURLS = new List<string>();
 
         public static void GetJSONFile()
         {
@@ -55,13 +64,22 @@ namespace SearchIt
                 Titles.Add(engine.Title);
                 URLS.Add(engine.URL);
             }
+
             Titles.Add("---------");
             URLS.Add("");
+
             foreach (Config.Misc misc in cfg.Miscellaneous)
             {
                 Titles.Add(misc.Title);
                 URLS.Add(misc.URL);
             }
+
+            foreach (Config.Command cmd in cfg.Commands)
+            {
+                CMDS.Add(cmd.Cmd);
+                CMDURLS.Add(cmd.URL);
+            }
+
         }
 
         #region Stylizer

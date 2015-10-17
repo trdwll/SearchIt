@@ -7,6 +7,10 @@
             "URL": "http://www.google.com/search?q="
         },
         {
+            "Title": "Bing",
+            "URL": "http://www.bing.com/search?q="
+        },
+        {
             "Title": "DuckDuckGo",
             "URL": "https://duckduckgo.com/?q="
         }
@@ -20,6 +24,13 @@
         {
             "Title": "IconFinder",
             "URL": "https://www.iconfinder.com/search/?q="
+        }
+    ],
+    "Commands":
+    [
+        {
+            "Cmd": "!yt",
+            "URL": "http://www.youtube.com/{0}/videos"
         }
     ]
 }
