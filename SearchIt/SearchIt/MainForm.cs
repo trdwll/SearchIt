@@ -55,7 +55,7 @@ namespace SearchIt
             ghk = new GlobalHotkey(0x0000, Keys.Oem3, this);
 
             comboBox1.SelectedIndex = 0;
-            comboBox1.DataSource = Settings.Titles;
+            comboBox1.DataSource = Settings.URLS.Keys.ToList();
 
             MoveIn();
         }
@@ -81,23 +81,33 @@ namespace SearchIt
                     Application.Restart();
                     break;
                 default:
-                    for (int i = 0; i < Settings.CMDS.Count; i++)
+                    string[] parts = str.Split(' ');
+
+                    if (Settings.CMDS.ContainsKey(parts[0].ToLower()))
                     {
-                        if (str.StartsWith(Settings.CMDS[i]))
+                        Config.Command cmd = Settings.CMDS[parts[0].ToLower()];
+
+                        if ((parts.Length - 1) >= cmd.Args)
                         {
-                            Process.Start(string.Format(Settings.CMDURLS[i], str.Replace(Settings.CMDS[i], "")).Replace(" ", ""));
-                        }
-                        else
-                        {
-                            foreach (string tld in tlds)
+                            string url = cmd.URL;
+                            for (int i = 1; i < parts.Length; i++)
                             {
-                                if (str.ToLower().Contains(tld) && !str.Contains(" "))
-                                {
-                                    istld = true;
-                                }
+                                url = url.Replace("{" + i + "}", parts[i]);
                             }
-                            Process.Start(istld ? "http://" + str : (ParseSelection(comboBox1.SelectedIndex) + Uri.EscapeDataString(str)));
+
+                            Process.Start(url);
                         }
+                    }
+                    else
+                    {
+                        foreach (string tld in tlds)
+                        {
+                            if (str.ToLower().Contains(tld) && !str.Contains(" "))
+                            {
+                                istld = true;
+                            }
+                        }
+                        Process.Start(istld ? "http://" + str : (Settings.URLS[(string)comboBox1.SelectedItem] + Uri.EscapeDataString(str)));
                     }
                     break;
             }
@@ -105,12 +115,6 @@ namespace SearchIt
             SearchBox.Text = "";
             comboBox1.SelectedIndex = 0;
             MoveOut();
-        }
-
-
-        private string ParseSelection(int p)
-        {
-            return Settings.URLS[p].ToString();
         }
 
         private void MoveIn()

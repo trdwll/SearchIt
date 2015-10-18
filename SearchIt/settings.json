@@ -30,7 +30,16 @@
     [
         {
             "Cmd": "!yt",
-            "URL": "http://www.youtube.com/{0}/videos"
+            "URL": "http://www.youtube.com/{1}/videos"
+        },
+        {
+            "Cmd": "!4ch",
+            "URL": "http://www.4chan.org/{1}/catalog"
+        },
+        {
+            "Cmd": "!gh",
+            "URL": "http://www.github.com/{1}/{2}",
+            "Args": 2
         }
     ]
 }
