@@ -39,6 +39,24 @@ namespace SearchIt
         {
             InitializeComponent();
 
+            trayIcon.Icon = new Icon(Application.StartupPath + "\\searchit.ico");
+            trayIcon.BalloonTipTitle = "SearchIt";
+            trayIcon.BalloonTipText = "SearchIt is running!";
+
+            MenuItem AppName = new MenuItem("SearchIt 0.8 by Russ 'trdwll' Treadwell");
+            MenuItem Break = new MenuItem("-");
+            MenuItem QuitApp = new MenuItem("Quit");
+
+            ContextMenu CMenu = new ContextMenu();
+            CMenu.MenuItems.Add(AppName);
+            CMenu.MenuItems.Add(Break);
+            CMenu.MenuItems.Add(QuitApp);
+
+            trayIcon.ContextMenu = CMenu;
+
+            AppName.Click += AppName_Click;
+            QuitApp.Click += QuitApp_Click;
+
             // Run the styling before form load
             this.BackColor = Settings.GetFormBackgroundColor();
             this.ForeColor = Settings.GetFormForegroundColor();
@@ -58,6 +76,16 @@ namespace SearchIt
             comboBox1.DataSource = Settings.URLS.Keys.ToList();
 
             MoveIn();
+        }
+
+        void AppName_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("SearchIt 0.8\nCreated by: Russ 'trdwll' Treadwell\nwww.trdwll.com", "About SearchIt");
+        }
+
+        void QuitApp_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
 
         private void Search(string str)

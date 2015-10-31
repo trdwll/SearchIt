@@ -28,10 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.SearchBox = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.SuspendLayout();
             // 
             // SearchBox
@@ -87,6 +89,11 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Special Thanks to Jack \'OhYea777\' Taylor <www.ohyea777.com>";
             // 
+            // trayIcon
+            // 
+            this.trayIcon.Text = "SearchIt";
+            this.trayIcon.Visible = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -120,6 +127,7 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NotifyIcon trayIcon;
     }
 }
 
