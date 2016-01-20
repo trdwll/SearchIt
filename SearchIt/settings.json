@@ -39,6 +39,10 @@
 			"Cmd": "!gh",
 			"URL": "http://www.github.com/{1}/{2}",
 			"Args": 2
-		}
+		},
+		{
+			"Cmd": "!define",
+			"URL": "https://www.google.com/search?q=define+{1}"
+		},
 	]
 }
